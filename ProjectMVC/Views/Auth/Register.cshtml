@@ -1,0 +1,66 @@
+@using ProjectMVC.DTO
+@model UserDto
+
+<div class="mt-24 flex flex-col gap-10 pb-16">
+    <div class="flex flex-col items-center justify-center">
+        <div class="w-full max-w-md rounded-lg border-2 border-secondary p-8 shadow-2xl dark:border dark:border-primary dark:bg-secondary">
+            <h2 class="text-center text-2xl font-semibold text-gray-800 dark:text-white">Register</h2>
+            <form asp-controller="Auth" asp-action="Register" method="post" class="mt-8 space-y-6">
+                <div class="flex flex-col">
+                    <label for="name" class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Name:</label>
+                    <input type="text" id="name" name="Name" value="@Model.Name" required class="rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:border-white dark:bg-secondary">
+                </div>
+
+                <div class="flex flex-col">
+                    <label for="email" class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Email:</label>
+                    <input type="email" id="email" name="Email" value="@Model.Email" required class="rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:border-white dark:bg-secondary">
+                </div>
+
+                <div class="flex flex-col">
+                    <label for="password" class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Password:</label>
+                    <input type="password" id="password" name="Password" required class="rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:border-white">
+                </div>
+
+				<div class="flex flex-col">
+					<label for="confirm-password" class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Re-enter Password:</label>
+					<input type="password" id="confirm-password" name="ConfirmPassword" required class="rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:border-white">
+				</div>
+
+                <button type="submit" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm dark:text-white font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 text-white shadow hover:bg-primary/90 h-9 px-4 py-2 w-full bg-gray-700 dark:bg-primary">
+                    Register
+                </button>
+            </form>
+
+            <div class="mt-4 text-center">
+                <a class="text-blue-500 hover:underline" asp-controller="Auth" asp-action="Login">Already have an account? Login here</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+<div id="validation-summary" class="fixed top-[0.1rem] left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 z-50 w-auto max-w-screen rounded-lg bg-red-500 p-4 text-center text-white shadow-lg transition-all duration-500 ease-out font-bold whitespace-pre-wrap list-none space-y-1">
+        @Html.ValidationSummary(false)
+</div>
+}
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const validationSummary = document.getElementById('validation-summary');
+
+		if (validationSummary) {
+			setTimeout(() => {
+				validationSummary.classList.remove('opacity-0', '-translate-y-full');
+				validationSummary.classList.add('opacity-100', 'translate-y-0');
+			}, 50);
+
+			setTimeout(() => {
+				validationSummary.classList.remove('opacity-100', 'translate-y-0');
+				validationSummary.classList.add('opacity-0', '-translate-y-full');
+
+				setTimeout(() => validationSummary.remove(), 500);
+			}, 10000);
+		}
+    });
+</script>

@@ -1,0 +1,12 @@
+@model IEnumerable<ProjectMVC.DTO.PostDto>
+
+<div class="mt-8 flex flex-col gap-10 pb-16">
+    @await Html.PartialAsync("_PostList", Model)
+</div>
+
+<!-- Dims background when creating post -->
+<div id="overlay-edit" class="hidden fixed inset-0 bg-black bg-opacity-50"></div>
+
+@await Html.PartialAsync("_EditPost")
+
+@await Html.PartialAsync("_Scripts")
